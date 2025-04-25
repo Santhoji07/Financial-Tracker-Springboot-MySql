@@ -1,6 +1,7 @@
 package com.CodeElevate.ExpenseTracker.services.income;
 
 import com.CodeElevate.ExpenseTracker.dto.IncomeDTO;
+import com.CodeElevate.ExpenseTracker.dto.StatsDTO;
 import com.CodeElevate.ExpenseTracker.entity.Income;
 import com.CodeElevate.ExpenseTracker.repository.IncomeRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -45,6 +46,25 @@ public class IncomeServiceImpl implements IncomeService {
                 .sorted(Comparator.comparing(Income::getDate).reversed())
                 .map(Income::getIncomeDto)
                 .collect(Collectors.toList());
+    }
+
+
+    public IncomeDTO getIncomeById(Long id){
+        Optional<Income> optionalIncome=incomeRepository.findById(id);
+        if(optionalIncome.isPresent()){
+            return optionalIncome.get().getIncomeDto();
+        }else{
+            throw new EntityNotFoundException("Income is not present with id "+id);
+        }
+    }
+
+    public void deleteIncome(Long id){
+        Optional<Income> optionalIncome=incomeRepository.findById(id);
+        if(optionalIncome.isPresent()){
+            incomeRepository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("Expense is not present with the id "+id);
+        }
     }
 
 }
