@@ -87,11 +87,6 @@ Financial-Tracker-Springboot-MySql/
 
 ---
 
-## 📄 License
-
-MIT License
-
----
 
 ## 👤 Author
 
